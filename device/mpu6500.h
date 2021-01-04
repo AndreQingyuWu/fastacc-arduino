@@ -282,7 +282,14 @@ enum mpu_reg {
 #define MPU_WHO_AM_I_MPU_9250 0x71
 #define MPU_WHO_AM_I_MPU_9255 0x73
 
-#define MPU_IIC_ADDR          0x68
+// Using the MPU-9250 breakout board, ADO is set to 0
+// Seven-bit device address is 110100 for ADO = 0 and 110101 for ADO = 1
+//#define ADO 1
+#if ADO
+#define MPU_IIC_ADDR 0x69  // Device address when ADO = 1
+#else
+#define MPU_IIC_ADDR 0x68  // Device address when ADO = 0
+#endif // AD0
 
 void WriteByte(uint8_t address, uint8_t subAddress, uint8_t data);
 
